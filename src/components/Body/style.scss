@@ -1,0 +1,33 @@
+.body_wrapper {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1E1F21;
+  color: #DCDDDD;
+  padding: 16px;
+  span {
+    font-size: 32px;
+    b {
+      font-weight: bold;
+      margin-right: 8px;
+    }
+  }
+  button {
+    border: unset;
+    background-color: #565759;
+    color: #E6E6E6;
+    border-radius: 4px;
+    margin-right: 2px;
+    height: 20px;
+    cursor: pointer;
+    outline: unset;
+  }
+  .today_btn {
+    padding-right: 16px;
+    padding-left: 16px;
+    font-weight: bold;
+  }
+  .buttons_wrapper {
+    display: flex;
+    align-items: center;
+  }
+}

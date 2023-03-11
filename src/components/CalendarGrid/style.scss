@@ -1,0 +1,61 @@
+.grid_wrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 1px;
+  background-color: #404040;
+}
+
+.cell_wrapper {
+  min-width: 140px;
+  color: #DDDCDD;
+
+  .row_in_cell {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+
+    .show_day_wrapper {
+      display: flex;
+      justify-content: flex-end;
+
+      .day_wrapper {
+        height: 31px;
+        width: 31px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2px 2px 0;
+
+        .current_day {
+          height: 100%;
+          width: 100%;
+          border-radius: 50%;
+          background-color: red;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+
+    .event_list {
+      margin: unset;
+      list-style-position: inside;
+      padding-left: 4px;
+      .event_item_wrapper {
+        position: relative;
+        left: -14px;
+        overflow: hidden;
+        color: #DDDDDD;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        background: unset;
+        border: unset;
+        width: 114px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
