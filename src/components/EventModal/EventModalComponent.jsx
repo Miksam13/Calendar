@@ -15,17 +15,22 @@ const EventModalComponent = (props) => {
           className="event_title"
           value={props.title}
           onChange={(e) => props.changeEventHandler(e.target.value, "title")}
+          placeholder="Write title event"
         />
-        <input
+        <textarea
           className="event_body"
           value={props.description}
           onChange={(e) =>
             props.changeEventHandler(e.target.value, "description")
           }
+          placeholder="Write description event"
         />
         <div className="buttons_wrapper">
           <button onClick={props.closeModalEvent}>Cancel</button>
           <button onClick={props.eventFetchHandler}>{props.method}</button>
+          {props.method === "Update" ? (
+            <button onClick={props.eventDeleteHandler}>Delete</button>
+          ) : null}
         </div>
       </div>
     </div>

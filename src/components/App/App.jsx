@@ -5,6 +5,8 @@ import CalendarGridComponent from "../CalendarGrid/CalendarGridComponent";
 import "./app.scss";
 import { useEffect, useState } from "react";
 import EventModalComponent from "../EventModal/EventModalComponent";
+import { DISPLAY_MODE_DAY, DISPLAY_MODE_MONTH } from "../../common/constants";
+import DayComponent from "../DayComponent/DayComponent";
 
 const url = "http://localhost:8000/events";
 
@@ -14,6 +16,7 @@ const defaultEvent = {
   date: moment().format("X"),
 };
 function App() {
+  const [displayMode, setDisplayMode] = useState("month");
   moment.updateLocale("en", {
     week: {
       dow: 1,
@@ -24,9 +27,10 @@ function App() {
   const startDay = today.clone().startOf("month").startOf("week");
 
   const prevHandler = () =>
-    setToday((prev) => prev.clone().subtract(1, "month"));
+    setToday((prev) => prev.clone().subtract(1, displayMode));
   const todayHandler = () => console.log("today");
-  const nextHandler = () => setToday((next) => next.clone().add(1, "month"));
+  const nextHandler = () =>
+    setToday((next) => next.clone().add(1, displayMode));
 
   const [event, setEvent] = useState(null);
   const [isShowForm, setShowForm] = useState(false);
@@ -42,11 +46,14 @@ function App() {
       .then((res) => setEvents(res));
   }, [today]);
 
-  const openModalEvent = (methodName, eventForUpdate) => {
-    console.log("double click", methodName);
-    setEvent(eventForUpdate || defaultEvent);
-    setShowForm(true);
+  const openFormHandler = (methodName, eventForUpdate, dayItem) => {
+    setEvent(eventForUpdate || { ...defaultEvent, date: dayItem.format("X") });
     setMethod(methodName);
+  };
+
+  const openModalEvent = (methodName, eventForUpdate, dayItem) => {
+    setShowForm(true);
+    openFormHandler(methodName, eventForUpdate, dayItem);
   };
 
   const closeModalEvent = () => {
@@ -86,6 +93,27 @@ function App() {
       });
   };
 
+  const eventDeleteHandler = () => {
+    const fetchUrl = `${url}/${event.id}`;
+    const httpMethod = "Delete";
+
+    fetch(fetchUrl, {
+      method: httpMethod,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(event),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        setEvents((prevState) =>
+          prevState.filter((eventEl) => eventEl.id !== event.id)
+        );
+        closeModalEvent();
+      });
+  };
+
   return (
     <>
       {isShowForm ? (
@@ -95,6 +123,7 @@ function App() {
           changeEventHandler={changeEventHandler}
           method={method}
           eventFetchHandler={eventFetchHandler}
+          eventDeleteHandler={eventDeleteHandler}
         />
       ) : null}
       <div className="shadow_wrapper">
@@ -104,13 +133,31 @@ function App() {
           prevHandler={prevHandler}
           todayHandler={todayHandler}
           nextHandler={nextHandler}
+          setDisplayMode={setDisplayMode}
+          displayMode={displayMode}
         />
-        <CalendarGridComponent
-          startDay={startDay}
-          today={today}
-          events={events}
-          openModalEvent={openModalEvent}
-        />
+        {displayMode === DISPLAY_MODE_MONTH ? (
+          <CalendarGridComponent
+            startDay={startDay}
+            today={today}
+            events={events}
+            openModalEvent={openModalEvent}
+            setDisplayMode={setDisplayMode}
+          />
+        ) : null}
+        {displayMode === DISPLAY_MODE_DAY ? (
+          <DayComponent
+            events={events}
+            today={today}
+            selectedEvent={event}
+            changeEventHandler={changeEventHandler}
+            closeModalEvent={closeModalEvent}
+            eventFetchHandler={eventFetchHandler}
+            eventDeleteHandler={eventDeleteHandler}
+            method={method}
+            openFormHandler={openFormHandler}
+          />
+        ) : null}
       </div>
     </>
   );

@@ -1,0 +1,130 @@
+.day_show_wrapper {
+  display: flex;
+  flex-grow: 1;
+  border-top: 1px solid #464648;
+}
+
+.events_list_wrapper {
+  background-color: #1E1F21;
+  color: #DDDDDD;
+  flex-grow: 1;
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      padding-right: 2px;
+      padding-left: 2px;
+      margin-bottom: 2px;
+      display: flex;
+      button {
+        position: relative;
+        flex-grow: 1;
+        overflow: hidden;
+        color: #DDDDDD;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        border: unset;
+        width: 114px;
+        text-align: left;
+        border-radius: 2px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        border: 1px solid #5b5f63;
+        background-color: #5b5f63;
+      }
+    }
+  }
+}
+
+.event_form_wrapper {
+  background-color: #27282A;
+  color: #DDDDDD;
+  width: 300px;
+  position: relative;
+  border-left: 1px solid #464648;
+  .msg_not_event {
+    color: #565759;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+}
+
+.scale_wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 4px;
+  position: relative;
+}
+
+.scale_cell_wrapper {
+  flex-grow: 1;
+  position: relative;
+  &:not(:last-child) {
+    border-bottom: 1px solid #464648;
+  }
+  margin-left: 32px;
+}
+
+.scale_cell_time_wrapper {
+  position: absolute;
+  left: -26px;
+  top: -6px;
+  font-size: 8px;
+}
+
+.scale_cell_event_wrapper {
+  min-height: 16px;
+}
+
+.btn_event_item {
+    position: relative;
+    flex-grow: 1;
+    overflow: hidden;
+    color: #DDDDDD;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    border: unset;
+    width: 114px;
+    text-align: left;
+    border-radius: 2px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border: 1px solid #5b5f63;
+    background-color: #5b5f63;
+}
+
+.select_event_time_wrapper {
+  padding: 8px 14px;
+  border-bottom: 1px solid #464648;
+  display: flex;
+  .list_hours {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 60px;
+    color: #000;
+    overflow-y: scroll;
+    position: absolute;
+    left: 2px;
+    background-color: rgb(239, 239, 239);
+  }
+  .hours_btn {
+    border: none;
+    cursor: pointer;
+    background-color: unset;
+  }
+}
+
+.red_line {
+  background-color: #f00;
+  height: 1px;
+  position: absolute;
+  left: 0;
+  right: 0;
+}

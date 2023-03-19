@@ -1,14 +1,18 @@
 import React from "react";
 import "./calendargrid.scss";
 import moment from "moment";
-import CelComponent from "./CelComponent/CelComponent";
+import CelDayWeekComponent from "./CelDayWeekComponent/CelDayWeekComponent";
+import CelDayComponent from "./CelDayComponent/CelDayComponent";
+import {
+  isSelectedMonth,
+  isCurrentDay,
+  isDayContainCurrentEvent,
+} from "../../common/functions";
 
-const CalendarGridComponent = (props) => {
+function CalendarGridComponent(props) {
   const totalDays = 42;
   const day = props.startDay.clone().subtract(1, "day");
   const daysArray = [...Array(totalDays)].map(() => day.add(1, "day").clone());
-  const isCurrentDay = (day) => moment().isSame(day, "day");
-  const isSelectedMonth = (month) => props.today.isSame(month, "month");
 
   return (
     <>
@@ -20,42 +24,28 @@ const CalendarGridComponent = (props) => {
         }}
       >
         {[...Array(7)].map((_, index) => (
-          <div
-            className="cell_wrapper"
-            style={{
-              minHeight: "24px",
-              color: "#DDDDDD",
-            }}
-            key={index}
-          >
-            <div
-              className="row_in_cell"
-              style={{
-                paddingRight: "8px",
-              }}
-            >
-              {moment()
-                .day(index + 1)
-                .format("ddd")}
-            </div>
-          </div>
+          <CelDayWeekComponent index={index} key={index} />
         ))}
       </div>
       <div className="grid_wrapper">
         {daysArray.map((dayItem, index) => (
-          <CelComponent
+          <CelDayComponent
             key={index}
             dayItem={dayItem}
             moment={moment}
+            today={props.today}
             isSelectedMonth={isSelectedMonth}
             isCurrentDay={isCurrentDay}
-            events={props.events}
+            events={props.events.filter((event) =>
+              isDayContainCurrentEvent(event, dayItem)
+            )}
             openModalEvent={props.openModalEvent}
+            setDisplayMode={props.setDisplayMode}
           />
         ))}
       </div>
     </>
   );
-};
+}
 
 export default CalendarGridComponent;

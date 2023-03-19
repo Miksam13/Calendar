@@ -6,7 +6,7 @@
 }
 
 .cell_wrapper {
-  min-width: 140px;
+  min-width: 120px;
   color: #DDDCDD;
 
   .row_in_cell {
@@ -40,22 +40,32 @@
     }
 
     .event_list {
-      margin: unset;
-      list-style-position: inside;
-      padding-left: 4px;
+      margin: 0;
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding-left: 2px;
+        padding-right: 2px;
+        margin-bottom: 2px;
+        display: flex;
+      }
       .event_item_wrapper {
         position: relative;
-        left: -14px;
+        flex-grow: 1;
         overflow: hidden;
         color: #DDDDDD;
         cursor: pointer;
         margin: 0;
         padding: 0;
-        background: unset;
         border: unset;
         width: 114px;
+        text-align: left;
+        border-radius: 2px;
         white-space: nowrap;
         text-overflow: ellipsis;
+        border: 1px solid #5b5f63;
+        background-color: #5b5f63;
       }
     }
   }

@@ -1,6 +1,10 @@
 .shadow_wrapper {
   border-radius: 8px;
   overflow: hidden;
+  min-width: 850px;
+  height: 702px;
+  display: flex;
+  flex-direction: column;
   border-top: 1px solid #737374;
   border-left: 1px solid #464648;
   border-right: 1px solid #464648;
